@@ -1,0 +1,62 @@
+// TestHowTo
+
+- do local test
+  only do like this.
+  $ make check-all
+
+  If you want to test with specified browser(s), rewrite browser
+  definitions in test/test.sh like follows.
+
+  BROWSERS="chromium-browser",...
+
+- do remote test
+  If you want to test with remote browsers like iOS or Android, do
+  like follows.
+
+  0.rewrite test server's IPAddr for async test.
+    $ vi test/linear.async.test.js
+      :s/127.0.0.1/Your Machine's IPAddr/
+
+  1.run test servers
+    $ make start-servers
+
+  2.access test url with your target browser(s)
+    Test for linear.js
+    <URL: http://testserver:4224/>
+    Test for linear.min.js
+    <URL: http://testserver:4226/>
+    And click 'Capture This Browser' Link
+
+  3.run all tests
+    Do test linear.js and linear.min.js
+    $ make run-tests
+    Do test linear.js only
+    $ make run-test-dev
+
+- note
+  linear.js and linear.min.js will work with versions shown below or later
+
+  - MAC OSX (10.6.8)
+    Chrome: 23.0.1271.91 (Official Build 167501)
+    Safari: 5.1.7 (6534.57.2)
+    Firefox: 17.0
+    Opera: 12.11
+  - Windows 7 Enterprise SP1
+    Chrome: 25.0.1323.1.dev-m
+    Safari: 5.1.7 (7534.57.2)
+    Firefox: 17.0
+    Opera: 12.11
+    InternetExplorer: 9.0.8112.16421(BM: IE9 compatible, DM: IE7 standard)
+  - Linux Ubuntu 12.04
+    Chrome: 19.0.1084.56 (Official Build 140965)
+    Firefox: 17.0
+  - Android 4.0.4 (Motorola Xoom)
+    Browser App: no version
+    Chrome-β: 18.0.1025.166 (Official Build 136965)
+  - iOS 4.2.1 (8C148)
+    Safari: no version
+  - iOS 5.0 (9A334)
+    Safari: no version
+  - iOS 6.0 (10A403)
+    Safari: no version
+    Chrome: 21.0.1180.80

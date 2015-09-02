@@ -1,0 +1,12 @@
+[submodule "test/deps/mod_websocket"]
+	path = test/deps/mod_websocket
+	url = https://github.com/nori0428/mod_websocket
+        ignore = dirty
+[submodule "test/deps/linear-cpp"]
+	path = test/deps/linear-cpp
+	url = https://github.com/linear-rpc/linear-cpp
+        ignore = dirty
+[submodule "test/deps/linear-fcgi"]
+	path = test/deps/linear-fcgi
+	url = https://github.com/linear-rpc/linear-fcgi
+        ignore = dirty

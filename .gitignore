@@ -1,0 +1,14 @@
+doc/html
+doc/develop
+*~
+
+test/workspace/bin/linear_fcgi
+test/workspace/bin/testserver
+test/workspace/etc/lighttpd.conf
+test/workspace/include/
+test/workspace/lib/
+test/workspace/sbin/
+test/workspace/share/
+test/workspace/var/
+
+
