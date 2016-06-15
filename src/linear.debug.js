@@ -696,12 +696,12 @@ globalScope.linear = function() {};
 /**
  * linear version
  */
-globalScope.linear.version = '2.5.2';
+globalScope.linear.version = '2.5.3';
 
 /**
  * linear signature (=== git commit id)
  */
-globalScope.linear.sign = 'f59a3039d47e2a1001aa94402101cf8c833dd73b';
+globalScope.linear.sign = '8c9cb3363143ff462d8bce8dfe654540b4298836';
 
 /**
  * a floating point value wrapper that inherits Number object.
@@ -1233,6 +1233,7 @@ globalScope.linear.protocol.linear.prototype.onmessage = function(data) {
     var objecttype = Object.prototype.toString.call(data);
     var array, chunk, messages, results = [];
     var id, method, params;
+    var u8array;
 
     if (objecttype === '[object String]') {
         try {
@@ -1242,7 +1243,11 @@ globalScope.linear.protocol.linear.prototype.onmessage = function(data) {
             return results;
         }
     } else if (objecttype === '[object ArrayBuffer]') {
-        chunk = Array.prototype.slice.call(new Uint8Array(data));
+        chunk = [];
+        u8array = new Uint8Array(data);
+        for (var i = 0, l = u8array.length; i < l; i++) {
+            chunk[i] = u8array[i];
+        }
     } else if (objecttype === '[object Array]' || objecttype === '[object Number]') {
         chunk = data;
     } else {
