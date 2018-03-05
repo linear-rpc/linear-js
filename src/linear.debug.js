@@ -225,8 +225,12 @@ function encode(rv,      // @param ByteArray: result
                     rv.push(c & 0x7f);
                 } else if (c < 0x0800) {
                     rv.push(((c >>>  6) & 0x1f) | 0xc0, (c & 0x3f) | 0x80);
-                } else if (c < 0x10000) {
+                } else if (c < 0xd800 || c > 0xdfff) {
                     rv.push(((c >>> 12) & 0x0f) | 0xe0,
+                            ((c >>>  6) & 0x3f) | 0x80, (c & 0x3f) | 0x80);
+                } else {
+                    c = (((c - 0xd800) << 10) | (mix.charCodeAt(++i) - 0xdc00)) + 0x10000;
+                    rv.push(((c >>> 18) | 0xf0), ((c >>> 12) & 0x3f) | 0x80,
                             ((c >>>  6) & 0x3f) | 0x80, (c & 0x3f) | 0x80);
                 }
             }
@@ -701,7 +705,7 @@ globalScope.linear.version = '2.5.3';
 /**
  * linear signature (=== git commit id)
  */
-globalScope.linear.sign = '8c9cb3363143ff462d8bce8dfe654540b4298836';
+globalScope.linear.sign = '5d2143d317b5e7703cf076ac4e2fb5b93f1fca95';
 
 /**
  * a floating point value wrapper that inherits Number object.
