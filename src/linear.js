@@ -37,7 +37,7 @@ globalScope.linear = function() {};
 /**
  * linear version
  */
-globalScope.linear.version = '2.5.3';
+globalScope.linear.version = '2.5.4';
 
 /**
  * linear signature (=== git commit id)
