@@ -700,12 +700,12 @@ globalScope.linear = function() {};
 /**
  * linear version
  */
-globalScope.linear.version = '2.5.3';
+globalScope.linear.version = '2.5.4';
 
 /**
  * linear signature (=== git commit id)
  */
-globalScope.linear.sign = 'ba8bd012bc9904ead86b2bb4a03b81119cf6fb3b';
+globalScope.linear.sign = '71ae8a04934de4f61acfd254c76fe12280f7b994';
 
 /**
  * a floating point value wrapper that inherits Number object.
@@ -1400,11 +1400,16 @@ globalScope.linear.transport.create = function(hash) {
  * if polling transport is available
  */
 globalScope.linear.transport.prototype.connect = function(hash) {
-    var socket, that = this, timeout;
+    var that = this, timeout;
 
     function onopen(e) {
+        if (e && e.currentTarget !== that.try_sock) {
+            e.currentTarget.onclose = e.currentTarget.onerror = null;
+            e.currentTarget.close();
+            return;
+        }
         that.type = 'websocket';
-        that.raw = new globalScope.linear.transport.websocket(socket);
+        that.raw = new globalScope.linear.transport.websocket(that.try_sock);
         that.raw.onopen = function(e) {
             that._onopen(e);
         };
@@ -1419,7 +1424,7 @@ globalScope.linear.transport.prototype.connect = function(hash) {
     }
 
     function onclose(e) {
-        socket = undefined;
+        that.try_sock = undefined;
         if (!that.entry.polling) {
             // call once
             that._onclose();
@@ -1457,7 +1462,7 @@ globalScope.linear.transport.prototype.connect = function(hash) {
     }
     if (that.entry.websocket) {
         try {
-            socket = new WebSocket(that.entry.websocket.url);
+            that.try_sock = new WebSocket(that.entry.websocket.url);
         } catch (e) {
             if (!that.entry.polling) {
                 // call once
@@ -1485,10 +1490,12 @@ globalScope.linear.transport.prototype.connect = function(hash) {
             };
             return;
         }
-        socket.onopen = onopen;
-        socket.onclose = onclose;
+        that.try_sock.onopen = onopen;
+        that.try_sock.onclose = onclose;
         setTimeout(function() {
                        if (that.state === 'connecting') {
+                           that.try_sock.onopen = that.try_sock.onclose = that.try_sock.onerror = null;
+                           that.try_sock.close();
                            onclose();
                        }
                    }, timeout);
