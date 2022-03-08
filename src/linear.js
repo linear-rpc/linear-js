@@ -37,12 +37,12 @@ globalScope.linear = function() {};
 /**
  * linear version
  */
-globalScope.linear.version = '2.5.5';
+globalScope.linear.version = '2.5.6';
 
 /**
  * linear signature (=== git commit id)
  */
-globalScope.linear.sign = '216d7f344fb000dc6f7450a038bef1bba3e867e0';
+globalScope.linear.sign = '82e6cbdff71abeb65977f440b18fcd8cea3642a1';
 
 /**
  * a floating point value wrapper that inherits Number object.

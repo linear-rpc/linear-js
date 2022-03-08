@@ -309,7 +309,7 @@ function encode(rv,      // @param ByteArray: result
                 if (size < 0x100) { // 8
                     rv.push(0xc4, size & 0xff);
                 } else if (size < 0x10000) { // 16
-                    rv.push(0xc4, size >> 8, size & 0xff);
+                    rv.push(0xc5, size >> 8, size & 0xff);
                 } else if (size < 0x100000000) { // 32
                     rv.push(0xc6, size >>> 24, (size >> 16) & 0xff, (size >>  8) & 0xff, size & 0xff);
                 }
