@@ -42,7 +42,7 @@ globalScope.linear.version = '2.5.5';
 /**
  * linear signature (=== git commit id)
  */
-globalScope.linear.sign = '01dbeac02fd7bcbf6842af9f8d596f16d263ade6';
+globalScope.linear.sign = '216d7f344fb000dc6f7450a038bef1bba3e867e0';
 
 /**
  * a floating point value wrapper that inherits Number object.
